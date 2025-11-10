@@ -141,6 +141,17 @@ public class Client {
 
     public void searchCategory(){
         loadMovies();
+        String category = getString("Please enter a category: ");
+        ArrayList<String> categoryList = new ArrayList<>();
+        for (Media movie : movies){
+            if (movie.getCategories().contains(category)){
+                categoryList.add(movie.getTitleName());
+            }
+        }
+        //System.out.println(categoryList);
+        for (String title :  categoryList){
+            System.out.println(title);
+        }
 
     }
 

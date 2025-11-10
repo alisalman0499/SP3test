@@ -25,6 +25,16 @@ public class Movie extends Media{
 
         int decision = Client.getInteger();
         return decision;
+    }
+
+    public ArrayList<String> getCategories(){
+        ArrayList<String> newCategories = new ArrayList<>();
+        String[] categoryList = categories.split(",");
+        for(String c : categoryList){
+            newCategories.add(c);
+        }
+        return newCategories;
+    }
 
 //        if (decision == 0) {
 //            System.out.println("Going back");
@@ -43,12 +53,13 @@ public class Movie extends Media{
         //Gem medie i watchList
         //Opdater watchList i users.csv
         //Hvis mediet allerede er gemt så giv mulighed for at fjerne fra listen istedet
-    }
 
     @Override
     String getTitleName() {
         return this.name;
     }
+
+
 
     public String toString(){
         return this.name + ", " + releaseDate + ", " + categories + ", " + rating;

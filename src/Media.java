@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 abstract class Media {
     protected String name;
     protected String type;
@@ -19,6 +21,6 @@ abstract class Media {
 
     abstract int titleOptions();
     abstract String getTitleName();
-
+    abstract ArrayList<String> getCategories();
 
 }
