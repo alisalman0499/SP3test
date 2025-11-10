@@ -77,7 +77,7 @@ public class Client {
         HashMap<String,String> users = new HashMap<>();
         ArrayList<String> playerData = io.readData("data/playerData.csv");
         for(String m : playerData){
-            String[] values =  m.split(",");//  "tess, 0"
+            String[] values =  m.split(",");
             User user = new User(username, password);
             users.put(values[0], password);
         }
@@ -93,8 +93,8 @@ public class Client {
 
     public void mainMenu(){
         while(true){
-            String[] options = {"Search for a title", "Search in category", "Watched titles", "Saved titles" };
             System.out.println("*** Main Menu ***");
+            String[] options = {"Search for a title", "Search in category", "Watched titles", "Saved titles" };
             displayOptions(options, "Please choose an option: ");
             System.out.println("0. Exit program");
             int decision = getInteger();
@@ -140,6 +140,8 @@ public class Client {
     }
 
     public void searchCategory(){
+        loadMovies();
+
     }
 
     public String getUserName(){
@@ -175,7 +177,7 @@ public class Client {
     public static void loadMovies(){
         ArrayList<String> movieData = io.readData("data/film.csv");
         for(String m : movieData){
-            String[] values =  m.split(";");//  "tess, 0"
+            String[] values =  m.split(";");
             Movie movie = new Movie(
                     values[0].trim(), values[1].trim(), values[2].trim(), Test.parseDoubleComma(values[3].trim()));
             titles.put(values[0], movie);
