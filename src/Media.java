@@ -19,7 +19,6 @@ abstract class Media {
         this.rating = rating;
     }
 
-    abstract int titleOptions();
     abstract String getTitleName();
     abstract ArrayList<String> getCategories();
 

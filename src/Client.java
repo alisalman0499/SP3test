@@ -58,7 +58,7 @@ public class Client {
 
     public void createUser(){
         System.out.println("Creating user...");
-        userProfilesData = io.readData("data/playerData.csv");
+        userProfilesData = io.readData("data/userLogin.csv");
 
         String username = getUserName();
         String password = getPassword();
@@ -67,7 +67,7 @@ public class Client {
         userProfiles.add(user);
         userProfilesData.add(user.toString());
 
-        io.saveData(userProfilesData, "data/playerData.csv", "Username, Password");
+        io.saveData(userProfilesData, "data/userLogin.csv", "Username, Password");
 
         login();
 
@@ -75,13 +75,16 @@ public class Client {
 
     public boolean validateUser(String username, String password){
         HashMap<String,String> users = new HashMap<>();
-        ArrayList<String> playerData = io.readData("data/playerData.csv");
+        ArrayList<String> playerData = io.readData("data/userLogin.csv");
         for(String m : playerData){
             String[] values =  m.split(",");
             User user = new User(username, password);
-            users.put(values[0], password);
+            users.put(values[0], values[1].trim());
         }
-        if (users.containsKey(username) && users.get(username).equals(password)){
+        System.out.println(users);
+        boolean comparison = users.get(username).equals(password);
+        System.out.println(comparison);
+        if (users.containsKey(username) && comparison){
             mainUser = new User(username, password);
             return true;
         }
@@ -150,7 +153,7 @@ public class Client {
         }
         //System.out.println(categoryList);
         for (String title :  categoryList){
-            System.out.println(title);
+            ui.displayMsg(title);
         }
 
     }
@@ -176,12 +179,12 @@ public class Client {
     }
 
     public String getString(String prompt){
-        System.out.print(prompt);
+        ui.displayMsg(prompt);
         return scanner.nextLine();
     }
 
     public void exitProgram(){
-        System.out.println("Quitting program...");
+        ui.displayMsg("Quitting program...");
         System.exit(0);
     }
 
@@ -204,21 +207,21 @@ public class Client {
     }
 
     public void movieOptions(String title){
-        System.out.println("*** Movie Options ***");
-        System.out.println("1. Play movie");
+        ui.displayMsg("*** Movie Options ***");
+        ui.displayMsg("1. Play movie");
         boolean saved = checkIfSaved(title);
         if (!saved) {
-            System.out.println("2. Add to saved");
+            ui.displayMsg("2. Add to saved");
         }
         else {
-            System.out.println("2. Remove from saved");
+            ui.displayMsg("2. Remove from saved");
         }
-        System.out.println("0. Go back");
+        ui.displayMsg("0. Go back");
 
         int decision = getInteger();
 
         if (decision == 0) {
-            System.out.println("Going back");
+            ui.displayMsg("Going back");
         } else if  (decision == 1) {
             playTitle(title);
         } else if (decision == 2) {
@@ -229,7 +232,7 @@ public class Client {
                 saveTitle(title);
             }
         } else {
-            System.out.println("Invalid option");
+            ui.displayMsg("Invalid option");
         }
     }
 
@@ -238,17 +241,17 @@ public class Client {
     }
 
     public void playTitle(String title){
-        System.out.println(title + " is now playing...");
+        ui.displayMsg(title + " is now playing...");
         mainUser.addToWatched(title);
     }
 
     public void saveTitle(String title){
-        System.out.println(title + " has now been saved");
+        ui.displayMsg(title + " has now been saved");
         mainUser.addToSaved(title);
     }
 
     public void removeTitle(String title){
-        System.out.println(title + " has now been removed from saved");
+        ui.displayMsg(title + " has now been removed from saved");
         mainUser.removeFromSaved(title);
     }
 
